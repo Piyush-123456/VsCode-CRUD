@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/stylesheets/style.css">
+
+</head>
+
+<body>
+
+  <div id="main">
+    <div id="left">
+      <h1>
+        VsCode
+      </h1>
+      <div style="border-bottom: 1px solid rgb(208, 203, 203);padding-bottom: 5px;" id="uploads">
+        <h2> Uploads</h2>
+        <i id="createFile" class="ri-file-3-line"></i>
+        <i id="createFolder" class="ri-folder-line"></i>
+      </div>
+      <form action="/createFile">
+        <input id="inp1"
+          style="display: none;   height: 30px; width: 100%; margin-bottom: 10px ; margin-top: 10px; padding-left:10px ;"
+          name="filename" type="text" placeholder="Create File">
+      </form>
+      <form action="/createFolder">
+        <input id="inp2"
+          style="display: none;   height: 30px; width: 100%; margin-bottom: 10px ; margin-top: 10px; padding-left:10px ;"
+          type="text" name="foldername" placeholder="Create Folder">
+      </form>
+
+
+      <ul>
+        <% myfiles.forEach((file)=> { %>
+          <% if (file.isdirectory) { %>
+            <li>
+              <i class="ri-folder-line"></i>
+
+              <span>
+                <%= file.name %>
+              </span>
+              <i id="createFile" class="ri-file-3-line"></i>
+              <i id="createFolder" class="ri-folder-line"></i>
+              <a href="/deleteFolder/<%= file.name%>">
+                <i class="ri-delete-bin-5-line"></i>
+              </a>
+
+              <i class="ri-pencil-line"></i>
+            </li>
+            <form action="/createFile">
+              <input style="height: 25px; width: 100%;" type="text">
+            </form>
+            <% } else { %>
+              <li>
+                <i class="ri-file-text-line"></i>
+
+                <span>
+                  <%= file.name %>
+                </span>
+                <a href="/delete/<%=file.name%>">
+                  <i class="ri-delete-bin-5-line"></i>
+                </a>
+                <i class="ri-pencil-line"></i>
+              </li>
+              <% } %>
+                <% }) %>
+      </ul>
+
+
+    </div>
+    <div id="right">
+
+    </div>
+  </div>
+  <script>
+    const inp1 = document.querySelector("#inp1");
+    const inp2 = document.querySelector("#inp2");
+    const createFile = document.querySelector("#createFile");
+    const createFolder = document.querySelector("#createFolder");
+
+    createFile.addEventListener("click", () => {
+      toggle(inp1);
+    });
+
+    createFolder.addEventListener("click", () => {
+      toggle(inp2);
+    });
+
+    function toggle(inputElement) {
+      if (inputElement.style.display === "none" || inputElement.style.display === "") {
+        inputElement.style.display = "initial";
+      } else {
+        inputElement.style.display = "none";
+      }
+    }
+
+  </script>
+</body>
+
+</html>
